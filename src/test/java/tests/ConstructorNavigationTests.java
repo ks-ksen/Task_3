@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import stellarburgers.api.UserApiClient;
 import stellarburgers.config.DriverConfig;
+import stellarburgers.config.Urls;
 import stellarburgers.model.User;
 import stellarburgers.pageobject.ConstructorPage;
 import stellarburgers.pageobject.LoginPage;
@@ -46,7 +47,7 @@ public class ConstructorNavigationTests {
     @DisplayName("Переход из профиля в конструктор по клику на 'Конструктор'")
     public void testGoToConstructorViaLink() {
         // Вход и переход в профиль
-        driver.get("https://qa-stellarburgers.education-services.ru/login");
+        driver.get(Urls.LOGIN_PAGE);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(user.getEmail(), user.getPassword());
         ConstructorPage constructorPage = new ConstructorPage(driver);
@@ -58,13 +59,16 @@ public class ConstructorNavigationTests {
 
         // Проверяем, что на главной
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не вернулись на главную");
+        constructorPage.checkFillingsSectionVisible();
+        constructorPage.checkBunsSectionVisible();
+        constructorPage.checkSaucesSectionVisible();
     }
 
     @Test
     @DisplayName("Переход из профиля в конструктор по клику на логотип")
     public void testGoToConstructorViaLogo() {
         // Вход и переход в профиль
-        driver.get("https://qa-stellarburgers.education-services.ru/login");
+        driver.get(Urls.LOGIN_PAGE);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(user.getEmail(), user.getPassword());
         ConstructorPage constructorPage = new ConstructorPage(driver);
@@ -75,22 +79,23 @@ public class ConstructorNavigationTests {
         profilePage.clickLogo();
 
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не вернулись на главную");
+        constructorPage.checkFillingsSectionVisible();
+        constructorPage.checkBunsSectionVisible();
+        constructorPage.checkSaucesSectionVisible();
     }
 
     @Test
     @DisplayName("Переходы по разделам конструктора: Булки, Соусы, Начинки")
     public void testConstructorTabsSwitching() {
-        driver.get("https://qa-stellarburgers.education-services.ru/");
+        driver.get(Urls.BASE_URL);
+
         ConstructorPage constructorPage = new ConstructorPage(driver);
 
-        // Проверяем разделы
+        // Переходим по разделам
         constructorPage.clickBunsTab();
-        constructorPage.checkBunsSectionVisible();
 
         constructorPage.clickSaucesTab();
-        constructorPage.checkSaucesSectionVisible();
 
         constructorPage.clickFillingsTab();
-        constructorPage.checkFillingsSectionVisible();
     }
 }

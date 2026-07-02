@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import stellarburgers.api.UserApiClient;
 import stellarburgers.config.DriverConfig;
+import stellarburgers.config.Urls;
 import stellarburgers.model.User;
 import stellarburgers.pageobject.ConstructorPage;
 import stellarburgers.pageobject.LoginPage;
@@ -45,7 +46,7 @@ public class ProfileNavigationTests {
     @DisplayName("Переход в личный кабинет по клику на 'Личный кабинет'")
     public void testNavigateToProfile() {
         // Вход в систему
-        driver.get("https://qa-stellarburgers.education-services.ru/login");
+        driver.get(Urls.LOGIN_PAGE);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(user.getEmail(), user.getPassword());
 

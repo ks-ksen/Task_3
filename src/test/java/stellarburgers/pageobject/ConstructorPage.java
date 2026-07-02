@@ -103,21 +103,34 @@ public class ConstructorPage extends BasePage {
         }
     }
 
+     //Проверка, что раздел с ингредиентами отображается
+    private void checkSectionVisible(WebElement section, String sectionName) {
+        // Прокручиваем к секции, чтобы убедиться, что она видима
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});",
+                section
+        );
+
+        wait.until(ExpectedConditions.visibilityOf(section));
+
+        assertTrue(
+                section.isDisplayed(),
+                "Раздел '" + sectionName + "' не отображается"
+                );
+    }
+
     @Step("Проверить, что раздел 'Булки' отображается")
     public void checkBunsSectionVisible() {
-        wait.until(ExpectedConditions.visibilityOf(bunsSection));
-        assertTrue(bunsSection.isDisplayed(), "Раздел 'Булки' не отображается");
+        checkSectionVisible(bunsSection, "Булки");
     }
 
     @Step("Проверить, что раздел 'Соусы' отображается")
     public void checkSaucesSectionVisible() {
-        wait.until(ExpectedConditions.visibilityOf(saucesSection));
-        assertTrue(saucesSection.isDisplayed(), "Раздел 'Соусы' не отображается");
+        checkSectionVisible(saucesSection, "Соусы");
     }
 
     @Step("Проверить, что раздел 'Начинки' отображается")
     public void checkFillingsSectionVisible() {
-        wait.until(ExpectedConditions.visibilityOf(fillingsSection));
-        assertTrue(fillingsSection.isDisplayed(), "Раздел 'Начинки' не отображается");
+        checkSectionVisible(fillingsSection, "Начинки");
     }
 }

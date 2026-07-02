@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import stellarburgers.api.UserApiClient;
 import stellarburgers.config.DriverConfig;
+import stellarburgers.config.Urls;
 import stellarburgers.model.User;
 import stellarburgers.pageobject.ConstructorPage;
 import stellarburgers.pageobject.ForgotPasswordPage;
@@ -47,7 +48,7 @@ public class LoginTests {
     @Test
     @DisplayName("Вход через кнопку 'Войти в аккаунт' на главной")
     public void testLoginViaMainButton() {
-        driver.get("https://qa-stellarburgers.education-services.ru/");
+        driver.get(Urls.MAIN_PAGE);
         ConstructorPage constructorPage = new ConstructorPage(driver);
         constructorPage.clickLoginButtonMain();
 
@@ -61,7 +62,7 @@ public class LoginTests {
     @Test
     @DisplayName("Вход через кнопку 'Личный кабинет'")
     public void testLoginViaPersonalAccount() {
-        driver.get("https://qa-stellarburgers.education-services.ru/");
+        driver.get(Urls.MAIN_PAGE);
         ConstructorPage constructorPage = new ConstructorPage(driver);
         constructorPage.clickPersonalAccountButton();
 
@@ -74,7 +75,7 @@ public class LoginTests {
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
     public void testLoginViaRegisterForm() {
-        driver.get("https://qa-stellarburgers.education-services.ru/register");
+        driver.get(Urls.REGISTER_PAGE);
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.clickLoginLink();
 
@@ -87,7 +88,7 @@ public class LoginTests {
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
     public void testLoginViaForgotPasswordForm() {
-        driver.get("https://qa-stellarburgers.education-services.ru/forgot-password");
+        driver.get(Urls.FORGOT_PASSWORD_PAGE);
         ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
         forgotPasswordPage.clickLoginLink();
 

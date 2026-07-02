@@ -8,12 +8,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import stellarburgers.api.UserApiClient;
 import stellarburgers.config.DriverConfig;
+import stellarburgers.config.Urls;
 import stellarburgers.model.User;
 import stellarburgers.pageobject.RegisterPage;
 
 import java.time.Duration;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Тесты для проверки функциональности регистрации.
@@ -46,26 +45,18 @@ public class RegistrationTests {
     @Test
     @DisplayName("Успешная регистрация нового пользователя")
     public void testSuccessfulRegistration() {
-
-        driver.get("https://qa-stellarburgers.education-services.ru/register");
+        driver.get(Urls.REGISTER_PAGE);
         RegisterPage registerPage = new RegisterPage(driver);
-
         registerPage.register(user.getName(), user.getEmail(), user.getPassword());
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(d -> d.getCurrentUrl().contains("/login"));
-
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.contains("/login"), "Не произошло перенаправление на страницу входа");
-
-        accessToken = apiClient.createUser(user).jsonPath().getString("accessToken");
     }
 
     @Test
     @DisplayName("Ошибка при регистрации с коротким паролем (меньше 6 символов)")
     public void testRegistrationWithShortPasswordError() {
-        driver.get("https://qa-stellarburgers.education-services.ru/register");
+        driver.get(Urls.REGISTER_PAGE);
         RegisterPage registerPage = new RegisterPage(driver);
-
         registerPage.register(user.getName(), user.getEmail(), "1234");
 
         registerPage.checkErrorPasswordMessageVisible();

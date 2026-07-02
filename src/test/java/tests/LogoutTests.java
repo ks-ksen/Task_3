@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import stellarburgers.api.UserApiClient;
 import stellarburgers.config.DriverConfig;
+import stellarburgers.config.Urls;
 import stellarburgers.model.User;
 import stellarburgers.pageobject.ConstructorPage;
 import stellarburgers.pageobject.LoginPage;
@@ -46,7 +47,7 @@ public class LogoutTests {
     @DisplayName("Выход по кнопке 'Выйти' в личном кабинете")
     public void testLogoutFromProfile() {
         // Вход в систему и переход в профиль
-        driver.get("https://qa-stellarburgers.education-services.ru/login");
+        driver.get(Urls.LOGIN_PAGE);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login(user.getEmail(), user.getPassword());
         ConstructorPage constructorPage = new ConstructorPage(driver);
