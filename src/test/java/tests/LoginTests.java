@@ -65,8 +65,10 @@ public class LoginTests {
         driver.get(Urls.MAIN_PAGE);
         ConstructorPage constructorPage = new ConstructorPage(driver);
         constructorPage.clickPersonalAccountButton();
-
         LoginPage loginPage = new LoginPage(driver);
+        //проверяем "вход"
+        loginPage.checkLoginHeaderVisible();
+
         loginPage.login(user.getEmail(), user.getPassword());
 
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не выполнена авторизация");
@@ -80,6 +82,7 @@ public class LoginTests {
         registerPage.clickLoginLink();
 
         LoginPage loginPage = new LoginPage(driver);
+        loginPage.checkLoginHeaderVisible();
         loginPage.login(user.getEmail(), user.getPassword());
 
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не выполнена авторизация");
@@ -93,6 +96,7 @@ public class LoginTests {
         forgotPasswordPage.clickLoginLink();
 
         LoginPage loginPage = new LoginPage(driver);
+        loginPage.checkLoginHeaderVisible();
         loginPage.login(user.getEmail(), user.getPassword());
 
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не выполнена авторизация");

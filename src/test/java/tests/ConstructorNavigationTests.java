@@ -59,9 +59,8 @@ public class ConstructorNavigationTests {
 
         // Проверяем, что на главной
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не вернулись на главную");
-        constructorPage.checkFillingsSectionVisible();
+        // Проверяем отображение
         constructorPage.checkBunsSectionVisible();
-        constructorPage.checkSaucesSectionVisible();
     }
 
     @Test
@@ -79,23 +78,40 @@ public class ConstructorNavigationTests {
         profilePage.clickLogo();
 
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не вернулись на главную");
-        constructorPage.checkFillingsSectionVisible();
         constructorPage.checkBunsSectionVisible();
-        constructorPage.checkSaucesSectionVisible();
+
     }
 
     @Test
-    @DisplayName("Переходы по разделам конструктора: Булки, Соусы, Начинки")
-    public void testConstructorTabsSwitching() {
+    @DisplayName("Переход в раздел Булки")
+    public void testConstructorTabsSwitchingBuns() {
         driver.get(Urls.BASE_URL);
 
         ConstructorPage constructorPage = new ConstructorPage(driver);
 
-        // Переходим по разделам
         constructorPage.clickBunsTab();
+        constructorPage.checkBunsSectionVisible();
+    }
+
+    @Test
+    @DisplayName("Переход в раздел Соусы")
+    public void testConstructorTabsSwitchingSauces() {
+        driver.get(Urls.BASE_URL);
+
+        ConstructorPage constructorPage = new ConstructorPage(driver);
 
         constructorPage.clickSaucesTab();
+        constructorPage.checkSaucesSectionVisible();
+    }
+
+    @Test
+    @DisplayName("Переход в раздел Соусы")
+    public void testConstructorTabsSwitchingFillings() {
+        driver.get(Urls.BASE_URL);
+
+        ConstructorPage constructorPage = new ConstructorPage(driver);
 
         constructorPage.clickFillingsTab();
+        constructorPage.checkFillingsSectionVisible();
     }
 }

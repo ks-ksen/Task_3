@@ -10,6 +10,7 @@ import stellarburgers.api.UserApiClient;
 import stellarburgers.config.DriverConfig;
 import stellarburgers.config.Urls;
 import stellarburgers.model.User;
+import stellarburgers.pageobject.LoginPage;
 import stellarburgers.pageobject.RegisterPage;
 
 import java.time.Duration;
@@ -50,6 +51,11 @@ public class RegistrationTests {
         registerPage.register(user.getName(), user.getEmail(), user.getPassword());
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(d -> d.getCurrentUrl().contains("/login"));
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.checkLoginButtonVisible();
+
+        accessToken = apiClient.loginUser(user).jsonPath().getString("accessToken");
+
     }
 
     @Test

@@ -6,6 +6,7 @@ import stellarburgers.config.Urls;
 import stellarburgers.model.User;
 
 import static io.restassured.RestAssured.given;
+import static stellarburgers.config.Urls.API_LOGIN_USER;
 
 public class UserApiClient {
     static {
@@ -17,6 +18,13 @@ public class UserApiClient {
                 .header("Content-type", "application/json")
                 .body(user)
                 .post(Urls.API_REGISTER);
+    }
+
+    public Response loginUser(User user) {
+        return given()
+                .header("Content-type", "application/json")
+                .body(user)
+                .post(Urls.API_LOGIN_USER);
     }
 
     public void deleteUser(String accessToken) {

@@ -12,9 +12,9 @@ public class Urls {
     public static final String LOGIN_PAGE = BASE_URL + "/login";
     public static final String REGISTER_PAGE = BASE_URL + "/register";
     public static final String FORGOT_PASSWORD_PAGE = BASE_URL + "/forgot-password";
-    public static final String PROFILE_PAGE = BASE_URL + "/account";
 
     // API эндпоинты
     public static final String API_REGISTER = "/api/auth/register";
     public static final String API_USER = "/api/auth/user";
+    public static final String API_LOGIN_USER = "/api/auth/login";
 }
