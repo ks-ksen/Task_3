@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -161,6 +162,33 @@ public class ConstructorPage extends BasePage {
     }
 
     /**
+     * Получение элемента таба по названию
+     */
+    private WebElement getTabElementWithClass(String tabName) {
+        return driver.findElement(
+                By.xpath("//span[text()='" + tabName + "']/parent::div[contains(@class, 'tab_tab__')]")
+        );
+    }
+
+    /**
+     * Проверка, активен ли таб по классу
+     */
+    private boolean isTabActive(String tabClass) {
+        return tabClass.contains("current") ||
+                tabClass.contains("active") ||
+                tabClass.contains("type_current") ||
+                tabClass.contains("_active_");
+    }
+
+    /**
+     * Ожидание активации таба
+     */
+    private void waitForTabActivation(String sectionName) {
+        WebElement tabElement = getTabElementWithClass(sectionName);
+        wait.until(driver -> isTabActive(Objects.requireNonNull(tabElement.getAttribute("class"))));
+    }
+
+    /**
      * Проверка видимости секции через анализ активного таба
      */
     private void checkSectionVisibleByTab(String sectionName) {
@@ -179,12 +207,7 @@ public class ConstructorPage extends BasePage {
                 throw new IllegalArgumentException("Неизвестная секция: " + sectionName);
         }
 
-        // Ждем немного после клика
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        waitForTabActivation(sectionName);
 
         // Получаем активный таб после клика
         String activeTab = getActiveTabClass();

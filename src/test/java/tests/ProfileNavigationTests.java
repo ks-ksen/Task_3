@@ -11,6 +11,7 @@ import stellarburgers.config.Urls;
 import stellarburgers.model.User;
 import stellarburgers.pageobject.ConstructorPage;
 import stellarburgers.pageobject.LoginPage;
+import stellarburgers.pageobject.ProfilePage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,7 +56,9 @@ public class ProfileNavigationTests {
         constructorPage.clickPersonalAccountButton();
 
         // Проверяем, что открылась страница профиля
+        ProfilePage profilePage = new ProfilePage(driver);
         String currentUrl = driver.getCurrentUrl();
         assertTrue(currentUrl.contains("/account"), "Не произошел переход в личный кабинет");
+        profilePage.checkLoginButtonVisible();
     }
 }

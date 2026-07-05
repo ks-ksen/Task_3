@@ -63,5 +63,6 @@ public class LogoutTests {
         String currentUrl = driver.getCurrentUrl();
         Assertions.assertNotNull(currentUrl);
         assertTrue(currentUrl.contains("/login"), "Не произошел выход");
+        loginPage.checkLoginHeaderVisible();
     }
 }

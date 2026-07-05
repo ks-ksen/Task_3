@@ -105,7 +105,7 @@ public class ConstructorNavigationTests {
     }
 
     @Test
-    @DisplayName("Переход в раздел Соусы")
+    @DisplayName("Переход в раздел Начинки")
     public void testConstructorTabsSwitchingFillings() {
         driver.get(Urls.BASE_URL);
 

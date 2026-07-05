@@ -53,10 +53,12 @@ public class LoginTests {
         constructorPage.clickLoginButtonMain();
 
         LoginPage loginPage = new LoginPage(driver);
+        loginPage.checkLoginHeaderVisible();
         loginPage.login(user.getEmail(), user.getPassword());
 
         String currentUrl = driver.getCurrentUrl();
         assertTrue(currentUrl.contains("qa-stellarburgers.education-services.ru/"), "Не выполнена авторизация");
+        constructorPage.checkBunsSectionVisible();
     }
 
     @Test
@@ -66,18 +68,18 @@ public class LoginTests {
         ConstructorPage constructorPage = new ConstructorPage(driver);
         constructorPage.clickPersonalAccountButton();
         LoginPage loginPage = new LoginPage(driver);
-        //проверяем "вход"
         loginPage.checkLoginHeaderVisible();
-
         loginPage.login(user.getEmail(), user.getPassword());
 
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не выполнена авторизация");
+        constructorPage.checkBunsSectionVisible();
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
     public void testLoginViaRegisterForm() {
         driver.get(Urls.REGISTER_PAGE);
+        ConstructorPage constructorPage = new ConstructorPage(driver);
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.clickLoginLink();
 
@@ -86,12 +88,14 @@ public class LoginTests {
         loginPage.login(user.getEmail(), user.getPassword());
 
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не выполнена авторизация");
+        constructorPage.checkBunsSectionVisible();
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
     public void testLoginViaForgotPasswordForm() {
         driver.get(Urls.FORGOT_PASSWORD_PAGE);
+        ConstructorPage constructorPage = new ConstructorPage(driver);
         ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
         forgotPasswordPage.clickLoginLink();
 
@@ -100,5 +104,6 @@ public class LoginTests {
         loginPage.login(user.getEmail(), user.getPassword());
 
         assertTrue(driver.getCurrentUrl().contains("qa-stellarburgers.education-services.ru/"), "Не выполнена авторизация");
+        constructorPage.checkBunsSectionVisible();
     }
 }

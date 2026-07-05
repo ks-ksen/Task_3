@@ -6,7 +6,6 @@ import stellarburgers.config.Urls;
 import stellarburgers.model.User;
 
 import static io.restassured.RestAssured.given;
-import static stellarburgers.config.Urls.API_LOGIN_USER;
 
 public class UserApiClient {
     static {

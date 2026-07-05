@@ -4,6 +4,9 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Page Object для страницы личного кабинета.
@@ -43,5 +46,11 @@ public class ProfilePage extends BasePage {
     @Step("Клик на логотип Stellar Burgers")
     public void clickLogo() {
         logo.click();
+    }
+
+    @Step("Проверить, что отображается кнопка 'Выход'")
+    public void checkLoginButtonVisible() {
+        wait.until(ExpectedConditions.visibilityOf(logoutButton));
+        assertTrue(logoutButton.isDisplayed(), "Кнопка 'Выход' не отображается");
     }
 }
